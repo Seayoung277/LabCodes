@@ -1,6 +1,6 @@
 clear; clc;
-load 'EEG_X.mat';
-load 'EEG_Y.mat';
+load '../Data/EEG/EEG_X.mat';
+load '../Data/EEG/EEG_Y.mat';
 
 data = [];
 for i = 1:size(X, 2)
@@ -25,7 +25,7 @@ for i = 1:size(X, 2)
         end
         head = tail + 1;
     end
-    model = templateSVM('KernelFunction', 'polynomial', 'PolynomialOrder', 2);
+    model = templateSVM('KernelFunction', 'polynomial', 'PolynomialOrder', 3);
     %model = templateSVM('KernelFunction', 'rbf');
     model = fitcecoc(train_data, train_label, 'Learners', model, 'Verbose', 1);
     acc = sum(predict(model, test_data) == test_label)/size(test_data, 1);
