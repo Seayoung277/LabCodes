@@ -81,6 +81,8 @@ def main(argv):
 		init = tf.global_variables_initializer()
 		sess = tf.Session()
 		sess.run(init)
+		gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.1)
+		sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))        
 
 		#tf.summary.scalar('Loss', loss)
 		#tf.summary.scalar('Accuracy', accuracy)
