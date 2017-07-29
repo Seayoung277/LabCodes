@@ -36,15 +36,15 @@ def getBatch(data, label, size):
 
 def main(argv):
 
-	normFlag = argv[1]
-	holdSeed = argv[2]
+	normFlag = int(argv[1])
+	holdSeed = int(argv[2])
 	seed = 10086
 	hid1 = 256
 	hid2 = 256
 	learningRate = 0.0001
 	momentum = 0.9
-	iterNum = 10000
-	batchSize = 500
+	iterNum = 2000
+	batchSize = 1000
 
 	dataPath = '../Data/EEG/EEG_X.mat'
 	labelPath = '../Data/EEG/EEG_Y.mat'
@@ -65,12 +65,12 @@ def main(argv):
 		testLabel = label[(i*3394):((i+1)*3394-1)]
 		trainData = np.delete(data, range(i*3394,(i+1)*3394-1), axis=0)
 		trainLabel = np.delete(label, range(i*3394,(i+1)*3394-1))
-		print(data.shape)
-		print(label.shape)
-		print(trainData.shape)
-		print(trainLabel.shape)
-		print(testData.shape)
-		print(testLabel.shape)
+		print(data.shape, np.max(data))
+		print(label.shape, np.max(label))
+		print(trainData.shape, np.max(trainData))
+		print(trainLabel.shape, np.max(trainLabel))
+		print(testData.shape, np.max(testData))
+		print(testLabel.shape, np.max(testLabel))
 
 		x = tf.placeholder(tf.float32, shape=[None, 310])
 		y = tf.placeholder(tf.int32, shape=[None])
