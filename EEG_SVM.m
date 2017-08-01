@@ -1,4 +1,4 @@
-clear; clc;
+clear;
 load '../Data/EEG/EEG_X.mat';
 load '../Data/EEG/EEG_Y.mat';
 
@@ -25,9 +25,10 @@ for i = 1:size(X, 2)
         end
         head = tail + 1;
     end
-    model = templateSVM('KernelFunction', 'polynomial', 'PolynomialOrder', 3);
+    model = templateSVM('KernelFunction', 'linear', 'GapTolerance', 1e-5, 'Standardize', false);
+    %model = templateSVM('KernelFunction', 'polynomial', 'PolynomialOrder', 1);
     %model = templateSVM('KernelFunction', 'rbf');
-    model = fitcecoc(train_data, train_label, 'Learners', model, 'Verbose', 1);
+    model = fitcecoc(train_data, train_label, 'Learners', model, 'Verbose', 0);
     acc = sum(predict(model, test_data) == test_label)/size(test_data, 1);
     fprintf('Acc: %f\n', acc);
     count = count + acc;
